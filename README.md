@@ -1,4 +1,3 @@
-```
 # E-Notes Project – Real-Time Project
 
 A comprehensive note-taking and task management application, offering a rich feature set with user authentication, notes organization, and to-do management. This project is designed for personal and professional note-taking needs with seamless file attachments, categorization, and task prioritization.
