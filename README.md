@@ -1,3 +1,4 @@
+```markdown
 # E-Notes Project – Real-Time Project
 
 A comprehensive note-taking and task management application, offering a rich feature set with user authentication, notes organization, and to-do management. This project is designed for personal and professional note-taking needs with seamless file attachments, categorization, and task prioritization.
@@ -86,3 +87,104 @@ A comprehensive note-taking and task management application, offering a rich fea
 2. Install the required dependencies:
    ```bash
    npm install
+   ```
+
+---
+
+## Database Setup
+
+To set up the database for the E-Notes project, execute the following SQL commands in your MySQL database environment. These commands will create the necessary tables for users, roles, categories, notes, file details, and todos.
+
+### SQL Commands
+
+1. **Create Users Table**
+   ```sql
+   CREATE TABLE users (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       first_name VARCHAR(100) NOT NULL,
+       last_name VARCHAR(100) NOT NULL,
+       email VARCHAR(255) NOT NULL UNIQUE,
+       password VARCHAR(255) NOT NULL,
+       mobile_no VARCHAR(15)
+   );
+   ```
+
+2. **Create Role Table**
+   ```sql
+   CREATE TABLE role (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(100) NOT NULL
+   );
+   ```
+
+3. **Create User_Role Table**
+   ```sql
+   CREATE TABLE user_role (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       user_id INT NOT NULL,
+       role_id INT NOT NULL,
+       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+       FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE
+   );
+   ```
+
+4. **Create Category Table**
+   ```sql
+   CREATE TABLE category (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       name VARCHAR(255) NOT NULL,
+       is_active BOOLEAN DEFAULT TRUE,
+       is_deleted BOOLEAN DEFAULT FALSE,
+       created_by INT,
+       created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       updated_by INT,
+       updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL
+   );
+   ```
+
+5. **Create Notes Table**
+   ```sql
+   CREATE TABLE notes (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       title VARCHAR(1000) NOT NULL,
+       description VARCHAR(1000),
+       category_id INT,
+       file_id INT NULL,
+       created_by INT,
+       created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+   );
+   ```
+
+6. **Create File_Details Table**
+   ```sql
+   CREATE TABLE file_details (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       original_file_name VARCHAR(255) NOT NULL,
+       display_file_name VARCHAR(255) NOT NULL,
+       upload_file_name VARCHAR(255) NOT NULL,
+       path VARCHAR(500) NOT NULL,
+       file_size DOUBLE NOT NULL,
+       file_type VARCHAR(100) NOT NULL
+   );
+   ```
+
+7. **Create Todo Table**
+   ```sql
+   CREATE TABLE todo (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       title VARCHAR(255) NOT NULL,
+       description VARCHAR(1000),
+       priority INT,
+       status INT,
+       created_by INT,
+       created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
+   ```
+
+### Notes
+- Make sure to configure your MySQL connection settings in the `application.properties` file before running the Spring Boot application.
+- Ensure that you have MySQL installed and running on your local machine or server.
+```
+
+This README includes a detailed overview of the project, technology stack, functionality, and instructions for running the project, along with the database setup section. If you have any other requirements or need further adjustments, feel free to let me know!
